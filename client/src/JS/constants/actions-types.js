@@ -1,0 +1,16 @@
+export const REGISTER_USER = "REGISTER_USER";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAILURE = "REGISTER_FAILURE";
+
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
+
+export const AUTH_USER = "AUTH_USER";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAILURE = "AUTH_FAILURE";
+
+export const GET_POSTS = "GET_POSTS"
+export const GET_POSTS_SUCCESS = "GET_POSTS_SUCCESS"
+export const GET_POSTS_FAILURE = "GET_POSTS_FAILURE"
+export const GET_POSTS_BY_ID = "GET_POSTS_BY_ID"

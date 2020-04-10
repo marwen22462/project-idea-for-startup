@@ -1,0 +1,26 @@
+.form-logIn {
+    background-image: radial-gradient(blue, black, orange);
+  padding-right: 40%;
+  padding-top: 10%;
+  padding-left: 35%;
+  padding-bottom: 20%;
+}
+.text-muted {
+  color: white !important;
+}
+.form-label {
+  color: white;
+  font-size: 22px;
+}
+.btn-danger {
+    padding: 7px 30px;
+  font-size: 20px;
+}
+
+.btn-primary {
+  padding: 7px 30px;
+  font-size: 20px;
+}
+.btn-danger {
+  margin-left: 27%;
+}

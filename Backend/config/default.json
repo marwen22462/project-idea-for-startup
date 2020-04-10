@@ -1,0 +1,4 @@
+{
+    "mongoUri":"mongodb+srv://marwen:marwen123456@contact-tfkpb.mongodb.net/contact_db?retryWrites=true&w=majority",
+    "secretOrKey": "Mysecret"
+}

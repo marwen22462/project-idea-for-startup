@@ -1,0 +1,72 @@
+import axios from "axios";
+import {
+  REGISTER_USER,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+  LOGIN_USER,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  AUTH_USER,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+} from "../constants/actions-types";
+
+export const register = (user) => async (dispatch) => {
+  dispatch({
+    type: REGISTER_USER,
+  });
+  try {
+    const registerResult = await axios.post("/register", user);
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: registerResult.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: REGISTER_FAILURE,
+      payload: error.response.data.errors,
+    });
+  }
+};
+
+export const login = (userLogIn) => async (dispatch) => {
+  dispatch({
+    type: LOGIN_USER,
+  });
+  try {
+    const logResult = await axios.post("/login", userLogIn);
+    localStorage.setItem("token", logResult.data.token);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: logResult.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGIN_FAILURE,
+      payload: error.response.data.errors,
+    });
+  }
+};
+
+export const isAuthorized = () => async (dispatch) => {
+  dispatch({
+    type: AUTH_USER,
+  });
+  const config = {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  };
+  try {
+    const isAuth = await axios.get("/current", config);
+    dispatch({
+      type: AUTH_SUCCESS,
+      payload: isAuth.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_FAILURE,
+      payload: error.response.data.errors,
+    });
+  }
+};
