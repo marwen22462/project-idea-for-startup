@@ -5,11 +5,10 @@ const userSchema = new mongoose.Schema({
   accountType: String,
   email: String,
   password: String,
-  // posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "post" }],
 });
 
 const postSchema = new mongoose.Schema({
-  user: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },

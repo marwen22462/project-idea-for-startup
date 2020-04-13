@@ -4,8 +4,9 @@ const postController = require('../controllers/post.Controller')
 const Router = express.Router()
 
 Router.get('/profile/:id/posts', postController.getPosts)
+Router.get('/profile/post/:id',postController.getOnePost)
 Router.post('/profile/:id/add', postController.addPost)
-Router.delete('/delete/:id', postController.deletePost)
+Router.delete('/profile/post/:id', postController.deletePost)
 Router.put('/edit/:id', postController.editPost)
 
 module.exports = Router

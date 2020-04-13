@@ -1,29 +1,31 @@
-import React, { Component } from "react";
-import {connect} from 'react-redux'
-import {Card, Button} from 'react-bootstrap'
+import React from "react";
+import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+// import PostModal from "../PostModal/PostModal";
 
-class Posts extends Component {
+class PostCard extends React.Component {
+  
   render() {
-    const { posts } = this.props;
+    // const {post} = this.props
     return (
-      <div>
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src="holder.js/100px180" />
-          <Card.Body>
-            <Card.Title>{posts.title}</Card.Title>
-            <Card.Text>
-              {posts.body}
-            </Card.Text>
-            <Button variant="primary">edit post</Button>
-          </Card.Body>
-        </Card>
-      </div>
+      <Card style={{ width: "18rem" }}>
+        <Card.Img
+          variant="top"
+          src="https://cdn4.iconfinder.com/data/icons/credit-card-payments/48/92-512.png"
+        />
+        <Card.Body>
+          <Card.Title>{this.props.post.title}</Card.Title>
+          <Card.Text>{this.props.post.body}</Card.Text>
+          <Link to={`/profile/post/${this.props.post._id}`}>
+            <Button variant="primary">
+              edit post
+            </Button>
+           
+          </Link>
+        </Card.Body>
+      </Card>
     );
   }
 }
 
-const mapStateToProps = state =>({
-    posts : state.postReducer.posts
-})
-
-export default connect(mapStateToProps) (Posts);
+export default PostCard;

@@ -1,6 +1,6 @@
 import React from "react";
-import { Navbar, Nav, Form, Button, Spinner } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import './HomeUser.css'
@@ -11,16 +11,11 @@ class Home extends React.Component {
   };
 
   render() {
-    const { isLoading, profile } = this.props;
-    return isLoading ? (
-      <Spinner animation="border" variant="success" />
-    ) : !profile ? (
-      <Redirect to="/" />
-    ) : (
+        return (
       <Navbar bg="primary" variant="dark">
         <Navbar.Brand href="#home">Navbar</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/homeUser">Home</Nav.Link>
 
           <Nav.Link href="#features">Features</Nav.Link>
         </Nav>
@@ -30,7 +25,7 @@ class Home extends React.Component {
               Logout
             </Button>
           </Link>
-          <Link to={`/profile/${profile.user._id}`}>
+          <Link to="/profile">
             <Button variant="outline-light">profile</Button>
           </Link>
         </Form>

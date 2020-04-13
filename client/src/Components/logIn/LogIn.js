@@ -7,10 +7,6 @@ import { login } from "../../JS/actions/actions";
 import "./Login.css";
 
 class LogIn extends Component {
-  state = {
-    email: "",
-    password: "",
-  };
   handleChange = (e) =>
     this.setState({ ...this.state, [e.target.name]: e.target.value });
 
@@ -21,7 +17,7 @@ class LogIn extends Component {
   render() {
     const { isLoading, errors } = this.props;
     return localStorage.getItem("token") ? (
-      <Redirect to="/profile" />
+      <Redirect to="/homeUser" />
     ) : isLoading ? (
       <Spinner animation="border" variant="success" />
     ) : (

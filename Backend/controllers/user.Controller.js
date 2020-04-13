@@ -1,7 +1,7 @@
 const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {User} = require("../models/User");
+const {User} = require("../models/User-Post");
 
 const secretOrKey = config.get("secretOrKey");
 module.exports = userController = {
@@ -62,4 +62,5 @@ module.exports = userController = {
       res.status(500).json({ errors: error });
     }
   }
-};
+}
+

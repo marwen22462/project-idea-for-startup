@@ -1,25 +1,33 @@
 const { ObjectID } = require("mongodb");
-const { Post } = require("../models/User");
+const { Post } = require("../models/User-Post");
 
 module.exports = postController = {
   getPosts: async (req, res) =>{
-    const user = ObjectID(req.params.id)
+    const userId = ObjectID(req.params.id)
     try {
-      const searchPostofUser = await Post.find({user})
+      const searchPostofUser = await Post.find({userId})
       res.status(200).json(searchPostofUser)
     } catch (error) {
       res.status(500).json({errors:error})
     }
   },
-  
+  getOnePost: async (req,res) =>{
+    const postId = ObjectID(req.params.id)
+    try {
+      const postRes= await Post.findOne(postId)
+      res.status(200).json(postRes)
+    } catch (error) {
+      res.status(500).json({errors:error})
+    } 
+  },
   addPost: async (req, res) => {
-    const user = ObjectID(req.params.id)
+    const userId = ObjectID(req.params.id)
     const {  title, body } = req.body;
     try {
       const newPost = new Post({
         title,
         body,
-        user
+        userId
       });
       try {
         const addResult = await newPost.save();

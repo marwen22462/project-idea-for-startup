@@ -29,12 +29,12 @@ export const register = (user) => async (dispatch) => {
   }
 };
 
-export const login = (userLogIn) => async (dispatch) => {
+export const login = (userLog) => async (dispatch) => {
   dispatch({
     type: LOGIN_USER,
   });
   try {
-    const logResult = await axios.post("/login", userLogIn);
+    const logResult = await axios.post("/login", userLog);
     localStorage.setItem("token", logResult.data.token);
     dispatch({
       type: LOGIN_SUCCESS,
@@ -58,7 +58,7 @@ export const isAuthorized = () => async (dispatch) => {
     },
   };
   try {
-    const isAuth = await axios.get("/current", config);
+    const isAuth = await axios.get("/profile", config);
     dispatch({
       type: AUTH_SUCCESS,
       payload: isAuth.data,
