@@ -16,7 +16,7 @@ class PostCard extends React.Component {
         <Card.Body>
           <Card.Title>{this.props.post.title}</Card.Title>
           <Card.Text>{this.props.post.body}</Card.Text>
-          <Link to={`/profile/post/${this.props.post._id}`}>
+          <Link to={`/profile/${this.props.post.userId}/post/${this.props.post._id}`}>
             <Button variant="primary">
               edit post
             </Button>

@@ -3,12 +3,13 @@ const connectDB = require("./config/connectDB");
 const app = express();
 const user = require('./routes/user')
 const post = require('./routes/post')
+const comment = require('./routes/comment')
 
 app.use(express.json());
 
 connectDB();
 
-app.use('/', user,post)
+app.use('/', user,post,comment)
 
 
 

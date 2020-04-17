@@ -23,7 +23,6 @@ const initialeState = {
   msg:[],
   posts: [],
   post: {},
-  getpost:{}
 };
 
 const postReducer = (state = initialeState, { type, payload }) => {
@@ -94,7 +93,7 @@ const postReducer = (state = initialeState, { type, payload }) => {
         return {
           ...state,
           isLoading:false,
-          getpost:payload
+          post:payload
         }
       case DELETE_ONE_POST:
         return {

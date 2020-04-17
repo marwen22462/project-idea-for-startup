@@ -23,7 +23,7 @@ function App() {
         <Route exact path="/profile" render={() => <Profile />} />
         <Route exact path="/profile/:id/posts" render={(props) => <PostList {...props} />} />
         <Route excat path="/profile/:id/add" render={(props) => <AddPost {...props}/> } />
-        <Route exact path="/profile/post/:id" render={(props) => <OnePost {...props}/>}/>
+        <Route exact path="/profile/:userId/post/:postId" render={(props) => <OnePost {...props}/>}/>
         </Switch>
       </BrowserRouter>
     </div>

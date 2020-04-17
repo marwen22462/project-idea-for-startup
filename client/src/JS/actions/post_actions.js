@@ -72,12 +72,12 @@ export const editPost = (id, post) =>async dispatch =>{
     }
 }
 
-export const getOnePost = id=>async dispatch=>{
+export const getOnePost = (userId,postId)=>async dispatch=>{
     dispatch({
         type:GET_ONE_POST
     })
     try {
-        const onePostRes= await axios.get(`/profile/post/${id}`)
+        const onePostRes= await axios.get(`/profile/${userId}/post/${postId}`)
         dispatch({
             type:GET_ONE_POST_SUCCESS,
             payload:onePostRes.data
@@ -106,9 +106,3 @@ export const deletePost=id =>async dispatch =>{
         })
     }
 }
-// export const getPostById = userId =>dispatch =>{
-//     dispatch({
-//         type:GET_POSTS_BY_ID,
-//         payload:userId
-//     })
-// }

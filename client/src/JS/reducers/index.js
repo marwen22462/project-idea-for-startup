@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import authReducer from "./authReducer.js";
 import postReducer from "./postReducer";
+import commentReducer from './commentReducer'
 
 export default combineReducers({
   authReducer,
-  postReducer
+  postReducer,
+  commentReducer
 });

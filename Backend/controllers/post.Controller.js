@@ -12,9 +12,10 @@ module.exports = postController = {
     }
   },
   getOnePost: async (req,res) =>{
-    const postId = ObjectID(req.params.id)
+    const postId = ObjectID(req.params.postId)
+    const userId = ObjectID(req.params.userId)
     try {
-      const postRes= await Post.findOne(postId)
+      const postRes= await Post.findOne(postId).populate('comments')
       res.status(200).json(postRes)
     } catch (error) {
       res.status(500).json({errors:error})
@@ -66,3 +67,4 @@ module.exports = postController = {
     }
   },
 };
+

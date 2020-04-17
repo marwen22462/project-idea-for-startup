@@ -13,10 +13,10 @@ class PostModal extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.getpost)
+    if (this.props.post)
       this.setState({
-        title: this.props.getpost.title,
-        body: this.props.getpost.body,
+        title: this.props.post.title,
+        body: this.props.post.body,
       });
       
   }
@@ -25,14 +25,14 @@ class PostModal extends Component {
   };
   editPoste = (e) => {
     // e.preventDefault();
-    this.props.editPost(this.props.getpost._id, this.state);
+    this.props.editPost(this.props.post._id, this.state);
   };
    refreshPage=()=> {
     window.location.reload(false);
   }
 
   render() {
-    const { title, body } = this.props.getpost;
+    const { title, body } = this.props.post;
     return (
       <Modal
         show={this.props.show}
@@ -71,7 +71,7 @@ class PostModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  getpost: state.postReducer.getpost,
+  post: state.postReducer.post,
 });
 
 export default connect(mapStateToProps, { editPost })(PostModal);

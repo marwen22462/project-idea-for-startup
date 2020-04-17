@@ -1,0 +1,15 @@
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+}
+.list-item-button{
+    background-color: transparent;
+    border: none;
+    margin: 0px 20px;
+    padding: 3px 8px;
+}
+.save-cancel-btn{
+    margin: 0px 5px;
+    padding: 0px 15px;
+    border-radius: 10px;
+}
