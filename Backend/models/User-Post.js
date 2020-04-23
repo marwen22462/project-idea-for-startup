@@ -14,6 +14,7 @@ const postSchema = new mongoose.Schema({
   },
   title: String,
   body: String,
+  postType: String,
   comments:[{type: mongoose.Schema.Types.ObjectId, ref: 'comment',autopopulate: true}]
 });
 

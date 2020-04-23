@@ -23,11 +23,12 @@ module.exports = postController = {
   },
   addPost: async (req, res) => {
     const userId = ObjectID(req.params.id)
-    const {  title, body } = req.body;
+    const {  title, body, postType } = req.body;
     try {
       const newPost = new Post({
         title,
         body,
+        postType,
         userId
       });
       try {
@@ -41,7 +42,7 @@ module.exports = postController = {
     }
   },
   deletePost: async (req, res) => {
-    const id = ObjectID(req.params.id);
+    const id = ObjectID(req.params.postId);
     try {
       const searchDeleteResult = await Post.findOneAndDelete({ _id: id });
       if (searchDeleteResult)
@@ -66,5 +67,14 @@ module.exports = postController = {
       res.status(500).json({ errors: error });
     }
   },
+  getPostsByType: async (req, res) =>{
+    const {postType1} = req.query;
+    try {
+      const searchResOfType = await Post.find({postType:postType1})
+      res.status(200).json(searchResOfType)
+    } catch (error) {
+      res.status(500).json({errors:error})
+    }
+  }
 };
 

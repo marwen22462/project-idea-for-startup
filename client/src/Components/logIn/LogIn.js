@@ -7,6 +7,10 @@ import { login } from "../../JS/actions/actions";
 import "./Login.css";
 
 class LogIn extends Component {
+  state={
+    email:"",
+    password:""
+  }
   handleChange = (e) =>
     this.setState({ ...this.state, [e.target.name]: e.target.value });
 

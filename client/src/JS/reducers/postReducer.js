@@ -14,6 +14,9 @@ import {
   DELETE_ONE_POST,
   DELETE_ONE_POST_FAILURE,
   DELETE_ONE_POST_SUCCESS,
+  GET_POST_BY_TYPE_SUCCESS,
+  GET_POST_BY_TYPE_FAILURE,
+  GET_POST_BY_TYPE,
   // GET_POSTS_BY_IDs
 } from "../constants/actions-types";
 
@@ -23,6 +26,8 @@ const initialeState = {
   msg:[],
   posts: [],
   post: {},
+  onePost:{},
+  allposts: []
 };
 
 const postReducer = (state = initialeState, { type, payload }) => {
@@ -93,7 +98,7 @@ const postReducer = (state = initialeState, { type, payload }) => {
         return {
           ...state,
           isLoading:false,
-          post:payload
+          onePost:payload
         }
       case DELETE_ONE_POST:
         return {
@@ -111,6 +116,23 @@ const postReducer = (state = initialeState, { type, payload }) => {
           ...state,
           isLoading:false,
           msg:payload
+        }
+      case GET_POST_BY_TYPE:
+        return {
+          ...state,
+          isLoading:true
+        }
+      case GET_POST_BY_TYPE_FAILURE:
+        return {
+          ...state,
+          isLoading:false,
+          errors:payload
+        }
+      case GET_POST_BY_TYPE_SUCCESS:
+        return {
+          ...state,
+          isLoading:false,
+          allposts:payload
         }
     default:
       return state;

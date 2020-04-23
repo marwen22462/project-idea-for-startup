@@ -24,10 +24,12 @@ exports.validator = (req, res, next)=>{
     const errors = validationResult(req).formatWith(errorFormatter)
     errors.isEmpty() ? next() : res.status(400).json({errors: errors.array() })
 }
-exports.postRules = () =>[
-check('title', ' this field is required ').notEmpty(),
-    check('title', ' at least 6 characters ').isLength({min:6}),
-    check('body', ' this field is required ').notEmpty(0),
-    check('body', ' you must right at least 20 characters').isLength({min:20})
-]
-    
+exports.authType=(accountType) =>{
+    return (req, res, next) =>{
+        if(req.user.accountType !== accountType) {
+            res.status(401)
+            return res.status('Not Allowed only admin')
+        }
+        next()
+    }
+}

@@ -15,6 +15,9 @@ import {
   DELETE_ONE_POST,
   DELETE_ONE_POST_SUCCESS,
   DELETE_ONE_POST_FAILURE,
+  GET_POST_BY_TYPE,
+  GET_POST_BY_TYPE_FAILURE,
+  GET_POST_BY_TYPE_SUCCESS,
 //   GET_POSTS_BY_ID,
 } from "../constants/actions-types";
 
@@ -89,12 +92,12 @@ export const getOnePost = (userId,postId)=>async dispatch=>{
         })
     }
 }
-export const deletePost=id =>async dispatch =>{
+export const deletePost=( userId, postId) =>async dispatch =>{
     dispatch({
         type:DELETE_ONE_POST
     })
     try {
-        const deleteRes = await axios.delete(`/profile/post/${id}`)
+        const deleteRes = await axios.delete(`/profile/${userId}/post/${postId}`)
         dispatch({
             type:DELETE_ONE_POST_SUCCESS,
             payload: deleteRes.data
@@ -102,6 +105,24 @@ export const deletePost=id =>async dispatch =>{
     } catch (error) {
         dispatch({
             type:DELETE_ONE_POST_FAILURE,
+            payload: error.response.data.errors
+        })
+    }
+}
+export const getPostByType=postType1 =>async dispatch =>{
+    dispatch({
+        type:GET_POST_BY_TYPE
+    })
+    try {
+        const getPostsRes= await axios.get("/homeUser", {params: postType1})
+        dispatch({
+            type:GET_POST_BY_TYPE_SUCCESS,
+            payload: getPostsRes.data
+            
+        })
+    } catch (error) {
+        dispatch({
+            type:GET_POST_BY_TYPE_FAILURE,
             payload: error.response.data.errors
         })
     }

@@ -17,12 +17,12 @@ function App() {
       <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() => <HomeGuest />} />
-        <Route exact path="/homeUser" render={() => <HomeUser />} />
+        <Route exact path="/homeUser" render={(props) => <HomeUser  {...props} />}  />
         <Route exact path="/register" render={() => <SignUp />} />
         <Route exact path="/login" render={() => <LogIn />} />
         <Route exact path="/profile" render={() => <Profile />} />
         <Route exact path="/profile/:id/posts" render={(props) => <PostList {...props} />} />
-        <Route excat path="/profile/:id/add" render={(props) => <AddPost {...props}/> } />
+        <Route excat path="/profile/:id/add" render={(props) => <AddPost  {...props}/> } />
         <Route exact path="/profile/:userId/post/:postId" render={(props) => <OnePost {...props}/>}/>
         </Switch>
       </BrowserRouter>
