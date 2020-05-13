@@ -7,7 +7,13 @@ import {
   LOGIN_SUCCESS,
   AUTH_SUCCESS,
   AUTH_USER,
-  AUTH_FAILURE
+  AUTH_FAILURE,
+  GET_ALL_USER,
+  GET_ALL_USER_SUCCESS,
+  GET_ALL_USER_FAILURE,
+  GET_ONE_USER_SUCCESS,
+  GET_ONE_USER,
+  GET_ONE_USER_FAILURE
 } from "../constants/actions-types";
 
 const initialState = {
@@ -16,7 +22,8 @@ const initialState = {
   errors: [],
   user: null,
   profile:null,
-  userLog: null
+  userLog: null,
+  allUsers:[]
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -73,6 +80,40 @@ const authReducer = (state = initialState, { type, payload }) => {
         isLoading: false,
         isAuth: true,
         profile: payload
+      };
+    case GET_ALL_USER:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_ALL_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allUsers: payload
+      };
+    case GET_ALL_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload
+      };
+    case GET_ONE_USER:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_ONE_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user:payload
+      };
+    case GET_ONE_USER_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors:payload
       };
     default:
       return state;

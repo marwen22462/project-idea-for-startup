@@ -17,17 +17,18 @@ import {
   GET_POST_BY_TYPE_SUCCESS,
   GET_POST_BY_TYPE_FAILURE,
   GET_POST_BY_TYPE,
-  // GET_POSTS_BY_IDs
+  ADD_LIKE
 } from "../constants/actions-types";
 
 const initialeState = {
   isLoading: false,
   errors: [],
-  msg:[],
+  msg: [],
   posts: [],
   post: {},
-  onePost:{},
-  allposts: []
+  onePost: {},
+  allposts: [],
+  like: {},
 };
 
 const postReducer = (state = initialeState, { type, payload }) => {
@@ -35,36 +36,36 @@ const postReducer = (state = initialeState, { type, payload }) => {
     case GET_POSTS:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
     case GET_POSTS_FAILURE:
       return {
         ...state,
         isLoading: false,
-        errors: payload
+        errors: payload,
       };
     case GET_POSTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        posts: payload
+        posts: payload,
       };
     case ADD_POST:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
     case ADD_POST_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        post: payload
+        post: payload,
       };
     case ADD_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
-        errors: payload
+        errors: payload,
       };
     case EDIT_POST:
       return {
@@ -75,64 +76,69 @@ const postReducer = (state = initialeState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        errors:payload
+        errors: payload,
       };
     case EDIT_POST_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        post:payload
+        post: payload,
       };
-      case GET_ONE_POST:
+    case GET_ONE_POST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_ONE_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload,
+      };
+    case GET_ONE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        onePost: payload,
+      };
+    case DELETE_ONE_POST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case DELETE_ONE_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload,
+      };
+    case DELETE_ONE_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        msg: payload,
+      };
+    case GET_POST_BY_TYPE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_POST_BY_TYPE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload,
+      };
+    case GET_POST_BY_TYPE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allposts: payload,
+      };
+      case ADD_LIKE:
         return {
           ...state,
-          isLoading:true
-        }
-      case GET_ONE_POST_FAILURE:
-        return {
-          ...state,
-          isLoading:false,
-          errors:payload
-        }
-      case GET_ONE_POST_SUCCESS:
-        return {
-          ...state,
-          isLoading:false,
-          onePost:payload
-        }
-      case DELETE_ONE_POST:
-        return {
-          ...state,
-          isLoading:true,
-        }
-      case DELETE_ONE_POST_FAILURE:
-        return {
-          ...state,
-          isLoading:false,
-          errors:payload
-        }
-      case DELETE_ONE_POST_SUCCESS:
-        return {
-          ...state,
-          isLoading:false,
-          msg:payload
-        }
-      case GET_POST_BY_TYPE:
-        return {
-          ...state,
-          isLoading:true
-        }
-      case GET_POST_BY_TYPE_FAILURE:
-        return {
-          ...state,
-          isLoading:false,
-          errors:payload
-        }
-      case GET_POST_BY_TYPE_SUCCESS:
-        return {
-          ...state,
-          isLoading:false,
-          allposts:payload
+          like: payload,
         }
     default:
       return state;

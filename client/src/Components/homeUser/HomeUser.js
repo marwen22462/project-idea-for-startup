@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Form, Button, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getPostByType } from "../../JS/actions/post_actions";
@@ -14,21 +14,19 @@ class HomeUser extends React.Component {
     postType1: "post",
   };
 
-
   componentDidMount() {
-    this.props.isAuthorized()
-    // this.props.getPostByType(this.state);
+    this.props.isAuthorized();
   }
-
 
   componentDidUpdate(prevProps) {
     if (prevProps.profile !== this.props.profile) {
       this.props.getPostByType({
-        postType1: this.props.profile.accountType === "entrepreneur" ? "post" : "idea"
-      })
+        postType1:
+          this.props.profile.accountType === "entrepreneur" ? "post" : "idea",
+      });
     }
   }
-  
+
   logout = () => {
     localStorage.removeItem("token");
   };
@@ -36,9 +34,11 @@ class HomeUser extends React.Component {
   render() {
     console.log(this.props.profile);
     // console.log(this.props.posts);
-    const { allposts, isLoading } = this.props;
-    return isLoading ? (
+    const { allposts, profile } = this.props;
+    return !profile ? (
       <Spinner animation="border" variant="success" />
+    ) : profile.accountType === "admin" ? (
+      <Redirect to="/dashboard" />
     ) : (
       <div>
         <Navbar bg="primary" variant="dark">
@@ -59,6 +59,7 @@ class HomeUser extends React.Component {
             </Link>
           </Form>
         </Navbar>
+    {/* <h1>{profile.date.}</h1> */}
         {allposts.map((allpost, key) => (
           <PostCard allpost={allpost} key={key} />
         ))}

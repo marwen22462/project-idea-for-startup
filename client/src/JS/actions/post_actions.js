@@ -18,6 +18,8 @@ import {
   GET_POST_BY_TYPE,
   GET_POST_BY_TYPE_FAILURE,
   GET_POST_BY_TYPE_SUCCESS,
+  ADD_LIKE,
+  ADD_LIKE_SUCCESS,
 //   GET_POSTS_BY_ID,
 } from "../constants/actions-types";
 
@@ -126,4 +128,23 @@ export const getPostByType=postType1 =>async dispatch =>{
             payload: error.response.data.errors
         })
     }
+}
+export const addLike = (userId, postId, like) =>async (dispatch) =>{
+    dispatch({
+        type: ADD_LIKE
+    })
+    try {
+        const likeRes= await axios.post(`/profile/${userId}/post/${postId}/addLike`, like)
+        dispatch({
+            type:ADD_LIKE_SUCCESS,
+            payload: likeRes.data
+            
+        })
+    } catch (error) {
+        dispatch({
+            type:ADD_POST_FAILURE,
+            payload: error.response.data.error
+        })
+    }
+    
 }

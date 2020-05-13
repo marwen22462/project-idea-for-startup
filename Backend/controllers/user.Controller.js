@@ -1,12 +1,13 @@
 const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { ObjectID } = require("mongodb");
 const {User} = require("../models/User-Post");
 
 const secretOrKey = config.get("secretOrKey");
 module.exports = userController = {
   register: async (req, res) => {
-    const { name, accountType, email, password } = req.body;
+    const { name, accountType, email, password,date } = req.body;
     try {
       const searchResultRegister = await User.findOne({ email });
       if (searchResultRegister)
@@ -17,7 +18,8 @@ module.exports = userController = {
         name,
         accountType,
         email,
-        password
+        password,
+        date
       });
       bcrypt.genSalt(10, (err, salt) => {
         if (err) throw err;
@@ -58,6 +60,23 @@ module.exports = userController = {
         if (err) throw err
         res.json({ token: `Bearer ${token}` });
       });
+    } catch (error) {
+      res.status(500).json({ errors: error });
+    }
+  },
+  getOneUser: async(req, res) =>{
+    const userId = ObjectID(req.params.id)
+    try {
+      const searchOneUser = await User.findOne(userId).populate("posts").populate("messages");
+      res.status(200).json(searchOneUser);
+    } catch (error) {
+      res.status(500).json({ errors: error });
+    }
+  },
+  getAllUsers: async(req, res)=>{
+    try {
+      const searchUser = await User.find().populate("posts").populate("messages");
+      res.status(200).json(searchUser);
     } catch (error) {
       res.status(500).json({ errors: error });
     }

@@ -70,12 +70,12 @@ export const editeComment = (userId, postId, comment) =>async dispatch =>{
     }
 }
 
-export const deleteComment = (userId, postId, comment) =>async dispatch =>{
+export const deleteComment = (userId, postId, id) =>async dispatch =>{
     dispatch({
         type:DELETE_COMMENT
     })
     try {
-        const deleteRes = await axios.delete(`/profile/${userId}/post/${postId}`, comment)
+        const deleteRes = await axios.delete(`/profile/${userId}/post/${postId}/comment`, {data:{id}} )
         dispatch({
             type:DELETE_COMMENT_SUCCESS,
             payload: deleteRes.data

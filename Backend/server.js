@@ -4,12 +4,15 @@ const app = express();
 const user = require('./routes/user')
 const post = require('./routes/post')
 const comment = require('./routes/comment')
+const message = require('./routes/message')
+const admin = require('./routes/admin')
+const like = require('./routes/like')
 
 app.use(express.json());
 
 connectDB();
 
-app.use('/', user,post,comment)
+app.use('/', user,post,comment, message, admin, like)
 
 
 

@@ -10,6 +10,7 @@ class AddPost extends Component {
     body: "",
     video: "",
     postType: "",
+    date:new Date().toLocaleDateString()
   };
 
   componentDidMount() {

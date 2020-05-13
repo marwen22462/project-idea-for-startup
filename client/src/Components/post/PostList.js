@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Spinner} from "react-bootstrap";
 // import {Link} from 'react-router-dom'
 
-import { getPosts } from "../../JS/actions/post_actions";
+import { oneUser } from "../../JS/actions/actions";
 import PostCard from "./PostCard";
 
 import "./PostList.css";
@@ -14,18 +14,20 @@ class PostList extends Component {
     show: false,
   };
   componentDidMount() {
-    this.props.getPosts(this.props.match.params.id);
+    this.props.oneUser(this.props.match.params.id);
   }
 
   
   render() {
-    const { isLoading, posts } = this.props;
-    return isLoading ? (
+    const { user } = this.props;
+    // const { posts } = this.props.user
+    console.log(this.props)
+    return !user ? (
       <Spinner animation="border" variant="success" />
     ) : (
       <div>
         <div className="post-list">
-          {posts.map((post, key) => (
+          {this.props.user.posts.map((post, key) => (
             <PostCard post={post} key={key} />
           ))}
         </div>
@@ -35,9 +37,9 @@ class PostList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isLoading: state.postReducer.isLoading,
-  posts: state.postReducer.posts,
+  isLoading: state.authReducer.isLoading,
   profile: state.authReducer.profile,
+  user: state.authReducer.user,
 });
 
-export default connect(mapStateToProps, { getPosts })(PostList);
+export default connect(mapStateToProps, { oneUser })(PostList);

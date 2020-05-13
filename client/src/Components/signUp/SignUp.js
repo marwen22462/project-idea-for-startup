@@ -12,6 +12,7 @@ class SignUp extends Component {
     email: "",
     password: "",
     accountType: "",
+    date:new Date().toLocaleDateString()
   };
   handleChange = (e) =>
     this.setState({ ...this.state, [e.target.name]: e.target.value });
@@ -75,7 +76,7 @@ class SignUp extends Component {
           <Form.Label>Choose your account type :</Form.Label>
           <Form.Control name="accountType" as="select" custom>
             <option defaultValue>choose account type ...</option>
-            <option>administrator</option>
+            <option>admin</option>
             <option>entrepreneur</option>
             <option>junior</option>
             <option>incubator</option>
