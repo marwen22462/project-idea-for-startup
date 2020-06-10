@@ -87,6 +87,7 @@ export const oneUser = (id) => async (dispatch) => {
       type: GET_ONE_USER_SUCCESS,
       payload: userResult.data,
     });
+    console.log(userResult.data)
   } catch (error) {
     dispatch({
       type: GET_ONE_USER_FAILURE,

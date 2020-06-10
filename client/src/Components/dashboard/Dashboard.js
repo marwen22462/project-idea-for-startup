@@ -28,11 +28,7 @@ class Dashboard extends Component {
   logout = () => {
     localStorage.removeItem("token");
   };
-  // toggleInfo = () => this.setState({ show: !this.state.show });
 
-  // showUsers = () => {
-
-  // };
   render() {
     const { profile, allUsers } = this.props;
     console.log(allUsers);
@@ -51,7 +47,8 @@ class Dashboard extends Component {
         <p className="hidden">
           {allUsers.map((alluser, key) =>
             alluser.accountType === "admin"
-              ? (this.state.x = this.state.x + 1)
+               // eslint-disable-next-line
+               ? (this.state.x = this.state.x + 1)
               : alluser.accountType === "entrepreneur"
               ? (this.state.y = this.state.y + 1)
               : alluser.accountType === "junior"
@@ -59,6 +56,7 @@ class Dashboard extends Component {
               : alluser.accountType === "incubator"
               ? (this.state.w = this.state.w + 1)
               : null
+              
           )}
         </p>
         <Pie
@@ -155,9 +153,11 @@ class Dashboard extends Component {
                   <td className="text"> {alluser.posts.length} posts </td>
                   <td>
                     {alluser.posts.map((post, key) => (
-                      <Link to={`/profile/${alluser._id}/post/${post}`}>
-                        post {key}
-                      </Link>
+                      <div key={key}>
+                        <Link to={`/profile/${alluser._id}/post/${post}`}>
+                          post {key}
+                        </Link>
+                      </div>
                     ))}
                   </td>
                 </tr>

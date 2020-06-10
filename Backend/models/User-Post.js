@@ -6,13 +6,6 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   date: String,
-  messages: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "message",
-      autopopulate: true,
-    },
-  ],
   posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,13 +24,9 @@ const postSchema = new mongoose.Schema({
   date: String,
   body: String,
   postType: String,
-  likes: [
-    { 
-      type: mongoose.Schema.Types.ObjectId,
-       ref: "like",
-       autopopulate: true 
-      },
-  ],
+  likes: [ {
+    type: mongoose.Schema.Types.ObjectId,
+  }, ],
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -46,23 +35,23 @@ const postSchema = new mongoose.Schema({
     },
   ],
 });
-const likeSchema = new mongoose.Schema({
-  date: String,
-  userId: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-      autopopulate: true
-    },
-  ],
-  userName: [
-    {
-      type: String,
-      ref: "user",
-      autopopulate: true
-    },
-  ],
-});
+// const likeSchema = new mongoose.Schema({
+//   date: String,
+//   userId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "user",
+//     autopopulate: true,
+//   },
+//   postId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "post",
+//   },
+//   name: {
+//     type: String,
+//     ref: "user",
+//     autopopulate: true,
+//   },
+// });
 
 const commentSchema = new mongoose.Schema({
   postId: {
@@ -76,28 +65,16 @@ const commentSchema = new mongoose.Schema({
   body: String,
   date: String,
 });
-const messageSchema = new mongoose.Schema({
-  body: String,
-  date: String,
-  senderId: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
-  reciverId: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-    },
-  ],
-});
+
 
 User = mongoose.model("user", userSchema);
 Post = mongoose.model("post", postSchema);
 Comment = mongoose.model("comment", commentSchema);
-Message = mongoose.model("message", messageSchema);
-Like = mongoose.model("like", likeSchema);
+// Like = mongoose.model("like", likeSchema);
 
 module.exports = {
   User,
   Post,
   Comment,
-  Message,
-  Like,
+  // Like,
 };

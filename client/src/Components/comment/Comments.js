@@ -9,7 +9,7 @@ import "./comments.css";
 class Comments extends Component {
   state = {
     body: "",
-    id: this.props.comment._id,
+    _id: this.props.comment._id,
     isEdit: false,
   };
   editcomment = () => {
@@ -23,7 +23,7 @@ class Comments extends Component {
     this.props.deleteComment(
       this.props.comment.userId,
       this.props.comment.postId,
-      this.state.id
+      this.state._id
     );
   };
   changeEditMode = () => {
@@ -34,7 +34,6 @@ class Comments extends Component {
   };
   
   render() {
-    console.log(this.props);
     return this.state.isEdit ? (
       <InputGroup className="mb-3">
         <FormControl
@@ -45,14 +44,14 @@ class Comments extends Component {
         <Button
           className="save-cancel-btn"
           variant="success"
-          onClick={this.editcomment}
+          onClick={()=>{this.editcomment(); this.changeEditMode()} }
         >
           save change
         </Button>
         <Button
           className="save-cancel-btn"
           variant="danger"
-          onClick={this.changeEditMode}
+          onClick={ this.changeEditMode}
         >
           cancel
         </Button>
@@ -93,6 +92,6 @@ const mapStateToProps = (state) => ({
   msg: state.commentReducer.msg,
 });
 
-export default connect(mapStateToProps, { editeComment, deleteComment })(
+export default connect(mapStateToProps, { editeComment, deleteComment, })(
   Comments
 );

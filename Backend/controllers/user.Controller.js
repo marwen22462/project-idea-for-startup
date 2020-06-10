@@ -67,7 +67,7 @@ module.exports = userController = {
   getOneUser: async(req, res) =>{
     const userId = ObjectID(req.params.id)
     try {
-      const searchOneUser = await User.findOne(userId).populate("posts").populate("messages");
+      const searchOneUser = await User.findOne(userId).populate("posts");
       res.status(200).json(searchOneUser);
     } catch (error) {
       res.status(500).json({ errors: error });

@@ -18,6 +18,7 @@ export const getAllUsers = ()=>async(dispatch)=>{
         type: GET_ALL_USER_SUCCESS,
         payload:allUsers.data
       })
+      console.log(allUsers.data)
     } catch (error) {
       dispatch({
         type:GET_ALL_USER_FAILURE,

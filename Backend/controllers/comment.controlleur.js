@@ -38,26 +38,35 @@ module.exports = commentControlleur = {
   },
 
   deleteComment: async (req, res) => {
-    const  {id}  = req.body;
+    const postId = ObjectID(req.params.postId);
+    const { _id } = req.body;
     try {
-      const searchDeleteCommment = await Comment.findOneAndDelete({_id:id});
+      const post = await Post.findByIdAndUpdate(
+        postId,
+        {
+          $pull:{comments:req.body._id},
+        },
+        {new:true}
+        )
+        if(!post){
+          return res.status(410).json("comment not found")
+        }
+      const searchDeleteCommment = await Comment.findOneAndDelete({ _id: _id });
       if (searchDeleteCommment)
-        return res.status(200).json({ msg: "comment deleted" });
-      else return res.status(500).json({ errors: error });
+      res.status(200).json({ _id });
     } catch (error) {
       res.status(501).json({ errors: error });
     }
   },
   editComment: async (req, res) => {
-    const {id} = req.body;
-    const  {body}  = req.body;
+    const { _id } = req.body;
+    const { body } = req.body;
     try {
       const editRes = await Comment.findOneAndUpdate(
-        { _id: id },
+        { _id: _id },
         { $set: { body } }
       );
-       res.status(200).json({ editRes });
-      
+      res.status(200).json({ _id, body});
     } catch (error) {
       res.status(501).json({ errors: error });
     }

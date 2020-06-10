@@ -17,7 +17,18 @@ import {
   GET_POST_BY_TYPE_SUCCESS,
   GET_POST_BY_TYPE_FAILURE,
   GET_POST_BY_TYPE,
-  ADD_LIKE
+  ADD_LIKE,
+  ADD_LIKE_SUCCESS,
+  ADD_LIKE_FAILURE,
+  CHECK_ABILITE_TO_LIKE,
+  CHECK_ABILITE_TO_LIKE_SUCCESS,
+  CHECK_ABILITE_TO_LIKE_FAILLURE,
+  REMOVE_LIKE,
+  REMOVE_LIKE_SUCCESS,
+  GET_LIKES_SUCCESS,
+  GET_LIKES_FAILURE,
+  GET_LIKES,
+  REMOVE_LIKE_FAILURE,
 } from "../constants/actions-types";
 
 const initialeState = {
@@ -28,7 +39,8 @@ const initialeState = {
   post: {},
   onePost: {},
   allposts: [],
-  like: {},
+  likes: [],
+  abiliteToLike: {},
 };
 
 const postReducer = (state = initialeState, { type, payload }) => {
@@ -59,7 +71,7 @@ const postReducer = (state = initialeState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        post: payload,
+        posts:[...state.posts, payload],
       };
     case ADD_POST_FAILURE:
       return {
@@ -72,17 +84,17 @@ const postReducer = (state = initialeState, { type, payload }) => {
         ...state,
         isLoading: true,
       };
+    case EDIT_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        onePost: payload,
+      };
     case EDIT_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
         errors: payload,
-      };
-    case EDIT_POST_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        post: payload,
       };
     case GET_ONE_POST:
       return {
@@ -135,11 +147,73 @@ const postReducer = (state = initialeState, { type, payload }) => {
         isLoading: false,
         allposts: payload,
       };
-      case ADD_LIKE:
+    case GET_LIKES:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_LIKES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        likes:  payload
+      };
+    case GET_LIKES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload
+      };
+    case ADD_LIKE:
+      return {
+        ...state,
+      };
+    case ADD_LIKE_SUCCESS:
+      return {
+        ...state,
+        abiliteToLike:false,
+        likes: [...state.likes, payload],
+      };
+    case ADD_LIKE_FAILURE:
+      return {
+        ...state,
+        errors: payload,
+      };
+    case CHECK_ABILITE_TO_LIKE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case CHECK_ABILITE_TO_LIKE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        abiliteToLike: payload,
+      };
+    case CHECK_ABILITE_TO_LIKE_FAILLURE:
+      return {
+        ...state,
+        isLoading: false,
+        errors: payload,
+      };
+      case REMOVE_LIKE:
         return {
           ...state,
-          like: payload,
+          isLoading: false
         }
+        case REMOVE_LIKE_SUCCESS:
+          return {
+            ...state,
+            isLoading: false,
+            likes:state.likes.filter(like=> like !== payload.userId),
+            abiliteToLike: true,
+         }
+        case REMOVE_LIKE_FAILURE:
+          return {
+            ...state,
+            isLoading: false,
+            errors: payload
+          }
     default:
       return state;
   }

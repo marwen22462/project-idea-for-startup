@@ -41,7 +41,7 @@ export const addComment = (userId, postId, comment) => async dispatch=>{
         const addCommentRes = await axios.post(`/profile/${userId}/post/${postId}`, comment)
         dispatch ({
             type: ADD_COMMENT_SUCCESS,
-            payload: addCommentRes.data
+            payload: addCommentRes.data,
         })
         
     } catch (error) {
@@ -62,6 +62,7 @@ export const editeComment = (userId, postId, comment) =>async dispatch =>{
             type: EDIT_COMMENT_SUCCESS,
             payload:editRes.data
         })
+        console.log(editRes.data)
     } catch (error) {
         dispatch({
             type:EDIT_COMMENT_FAILURE,
@@ -70,16 +71,17 @@ export const editeComment = (userId, postId, comment) =>async dispatch =>{
     }
 }
 
-export const deleteComment = (userId, postId, id) =>async dispatch =>{
+export const deleteComment = (userId, postId, _id) =>async dispatch =>{
     dispatch({
         type:DELETE_COMMENT
     })
     try {
-        const deleteRes = await axios.delete(`/profile/${userId}/post/${postId}/comment`, {data:{id}} )
+        const deleteRes = await axios.delete(`/profile/${userId}/post/${postId}/comment`, {data:{_id}} )
         dispatch({
             type:DELETE_COMMENT_SUCCESS,
             payload: deleteRes.data
         })
+        console.log(deleteRes.data)
     } catch (error) {
         dispatch({
             type:DELETE_COMMENT_FAILURE,

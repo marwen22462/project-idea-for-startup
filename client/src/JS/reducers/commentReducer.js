@@ -50,7 +50,7 @@ const commentReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        comment: payload,
+        comments: [...state.comments, payload],
       };
     case ADD_COMMENT_FAILURE:
       return {
@@ -67,7 +67,7 @@ const commentReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        editedComment:payload
+        comments:state.comments.map(comment => comment._id ===payload._id?{...payload}:comment)
       };
     case EDIT_COMMENT_FAILURE:
       return {
@@ -84,7 +84,7 @@ const commentReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        comment:payload
+        comments:state.comments.filter(comment=> comment._id !== payload._id)
       };
     case DELETE_COMMENT_FAILURE:
       return {

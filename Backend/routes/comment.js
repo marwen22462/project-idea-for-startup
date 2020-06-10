@@ -5,7 +5,6 @@ const Router = express.Router()
 
 Router.post('/profile/:userId/post/:postId', commentControlleur.addComment)
 Router.put('/profile/:userId/post/:postId', commentControlleur.editComment)
-// Router.get('/profile/post/:id', commentControlleur.getAllComment)
 Router.delete('/profile/:userId/post/:postId/comment', commentControlleur.deleteComment)
 
 module.exports=Router

@@ -42,7 +42,7 @@ module.exports = postController = {
               (err, data) => {
                 if (err) res.status(504).json({ errors: error });
                 else {
-                  res.status(200).json(data);
+                  res.status(200).json(newPost);
                 }
               }
             );
@@ -57,25 +57,37 @@ module.exports = postController = {
   },
   deletePost: async (req, res) => {
     const postId = ObjectID(req.params.postId);
+    const userId = ObjectID(req.params.userId);
     try {
+      const user = await User.findByIdAndUpdate(
+        userId,
+        {
+          $pull:{posts:postId},
+        },
+        {new:false}
+      )
+      if(!user){
+        return res.status(401).json("post not found")
+      }
       const searchDeleteResult = await Post.findOneAndDelete({ _id: postId });
       if (searchDeleteResult)
         return res.status(201).json({ msg: "post deleted" });
-      else return res.status(400).json({ errore: error });
+      else return res.status(400).json({ errors: error });
     } catch (error) {
       res.status(500).json({ errors: error });
     }
   },
   editPost: async (req, res) => {
-    const id = ObjectID(req.params.id);
+    const _id = ObjectID(req.params.postId);
+    const userId = ObjectID(req.params.userId)
     const { title, body } = req.body;
     try {
       const searchEditResult = await Post.findOneAndUpdate(
-        { _id: id },
+        { _id: _id },
         { $set: { title, body } }
       );
       if (searchEditResult)
-        return res.status(201).json({ msg: "post edited with success" });
+        return res.status(201).json({ _id,userId, title, body });
       else return res.status(400).json({ errore: error });
     } catch (error) {
       res.status(500).json({ errors: error });

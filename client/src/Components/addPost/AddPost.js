@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
+import {Link} from 'react-router-dom'
 
+import {isAuthorized} from '../../JS/actions/actions'
 import { addPost } from "../../JS/actions/post_actions";
 
 class AddPost extends Component {
@@ -14,6 +16,7 @@ class AddPost extends Component {
   };
 
   componentDidMount() {
+    this.props.isAuthorized()
     if (this.props.location.state.accountType === "entrepreneur")
       this.setState({ postType: "post" });
     else this.setState({ postType: "idea" });
@@ -27,8 +30,12 @@ class AddPost extends Component {
   };
 
   render() {
-    console.log(this.props.location.state.accountType);
-    return this.props.location.state.accountType === "entrepreneur" ? (
+    console.log(this.props);
+    const {id}= this.props.match.params.id;
+    const   { isAuth, profile}= this.props
+    return !isAuth ? (
+      <h4>loading to go to profile</h4>
+    ) : this.props.location.state.accountType === "entrepreneur" ? (
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Title</Form.Label>
@@ -49,7 +56,9 @@ class AddPost extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-
+        {/* <Link to={`/profile/${id}/posts`}>
+          <h5>move </h5>
+         </Link> */}
         <Button variant="primary" type="button" onClick={this.addpost}>
           Add
         </Button>
@@ -85,13 +94,19 @@ class AddPost extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-
-        <Button variant="primary" type="button" onClick={this.addpost}>
-          Add
-        </Button>
+        <Link to={`/profile/${profile._id}/posts`}>
+        <button onClick={this.addpost}>
+           Add
+      </button>
+      </Link>
       </Form>
     );
   }
 }
 
-export default connect(null, { addPost })(AddPost);
+const mapStateToProps = (state) =>({
+  isAuth: state.authReducer.isAuth,
+  profile: state.authReducer.profile
+})
+
+export default connect(mapStateToProps, { addPost,isAuthorized })(AddPost);
