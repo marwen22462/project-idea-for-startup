@@ -1,3 +1,10 @@
+.homrUser	{
+		background: #e3e9ff;
+    color: #808080;
+		font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+	}
+
 .btn-outline-light{
 font-size: 18px;
 border-radius: 15%;

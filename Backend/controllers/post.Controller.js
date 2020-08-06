@@ -14,7 +14,7 @@ module.exports = postController = {
   getOnePost: async (req, res) => {
     const postId = ObjectID(req.params.postId);
     try {
-      const postRes = await Post.findOne(postId).populate("comments");
+      const postRes = await Post.findOne(postId).populate("comments").populate("likes");
       res.status(200).json(postRes);
     } catch (error) {
       res.status(500).json({ errors: error });

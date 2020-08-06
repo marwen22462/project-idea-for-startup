@@ -41,6 +41,8 @@ const initialeState = {
   allposts: [],
   likes: [],
   abiliteToLike: {},
+  likeId: {},
+  likeData:[]
 };
 
 const postReducer = (state = initialeState, { type, payload }) => {
@@ -156,7 +158,7 @@ const postReducer = (state = initialeState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        likes:  payload
+        likeData:payload
       };
     case GET_LIKES_FAILURE:
       return {
@@ -172,7 +174,9 @@ const postReducer = (state = initialeState, { type, payload }) => {
       return {
         ...state,
         abiliteToLike:false,
-        likes: [...state.likes, payload],
+        likes: [...state.likes, payload._id],
+        likeId:payload._id,
+        likeData: [...state.likeData, payload]
       };
     case ADD_LIKE_FAILURE:
       return {
@@ -189,6 +193,8 @@ const postReducer = (state = initialeState, { type, payload }) => {
         ...state,
         isLoading: false,
         abiliteToLike: payload,
+        likes: payload ===true ?[]: [...state.likes, payload._id],
+        likeId: payload._id,
       };
     case CHECK_ABILITE_TO_LIKE_FAILLURE:
       return {
@@ -205,8 +211,8 @@ const postReducer = (state = initialeState, { type, payload }) => {
           return {
             ...state,
             isLoading: false,
-            likes:state.likes.filter(like=> like !== payload.userId),
-            abiliteToLike: true,
+            likes:state.likes.filter(like=> like !== payload._id),
+            abiliteToLike: true
          }
         case REMOVE_LIKE_FAILURE:
           return {

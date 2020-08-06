@@ -2,12 +2,12 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { ObjectID } = require("mongodb");
-const {User} = require("../models/User-Post");
+const { User } = require("../models/User-Post");
 
 const secretOrKey = config.get("secretOrKey");
 module.exports = userController = {
   register: async (req, res) => {
-    const { name, accountType, email, password,date } = req.body;
+    const { name, accountType, email, password, date } = req.body;
     try {
       const searchResultRegister = await User.findOne({ email });
       if (searchResultRegister)
@@ -19,7 +19,7 @@ module.exports = userController = {
         accountType,
         email,
         password,
-        date
+        date,
       });
       bcrypt.genSalt(10, (err, salt) => {
         if (err) throw err;
@@ -54,18 +54,18 @@ module.exports = userController = {
         id: searchResultLogin._id,
         name: searchResultLogin.name,
         email: searchResultLogin.email,
-        accountType: searchResultLogin.accountType
+        accountType: searchResultLogin.accountType,
       };
       jwt.sign(payload, secretOrKey, (err, token) => {
-        if (err) throw err
+        if (err) throw err;
         res.json({ token: `Bearer ${token}` });
       });
     } catch (error) {
       res.status(500).json({ errors: error });
     }
   },
-  getOneUser: async(req, res) =>{
-    const userId = ObjectID(req.params.id)
+  getOneUser: async (req, res) => {
+    const userId = ObjectID(req.params.id);
     try {
       const searchOneUser = await User.findOne(userId).populate("posts");
       res.status(200).json(searchOneUser);
@@ -73,13 +73,27 @@ module.exports = userController = {
       res.status(500).json({ errors: error });
     }
   },
-  getAllUsers: async(req, res)=>{
+  getAllUsers: async (req, res) => {
     try {
-      const searchUser = await User.find().populate("posts").populate("messages");
+      const searchUser = await User.find()
+        .populate("posts")
+        .populate("messages");
       res.status(200).json(searchUser);
     } catch (error) {
       res.status(500).json({ errors: error });
     }
-  }
-}
-
+  },
+  editUser: async (req, res) => {
+    const { userId, name, email } = req.body;
+    try {
+      const searchEditUser = await User.findOneAndUpdate(
+        { _id: userId },
+        { $set: { name: name, email: email } },
+        { new: true }
+      );
+      res.status(200).json(searchEditUser);
+    } catch (error) {
+      res.status(500).json({ errors: error });
+    }
+  },
+};

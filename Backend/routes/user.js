@@ -9,5 +9,6 @@ Router.post('/register', registerRules(), validator, userController.register)
 Router.post('/login', userController.login)
 Router.get('/profile', isAuth(), (req, res)=> res.json(req.user))
 Router.get('/profile/:id/posts' ,userController.getOneUser)
+Router.put('/profile', userController.editUser)
 
 module.exports = Router

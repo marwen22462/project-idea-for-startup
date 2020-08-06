@@ -10,6 +10,10 @@ export const AUTH_USER = "AUTH_USER";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAILURE = "AUTH_FAILURE";
 
+export const EDIT_USER = "EDIT_USER";
+export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
+export const EDIT_USER_FAILURE = "EDIT_USER_FAILURE";
+
 export const GET_ONE_USER = "GET_ONE_USER";
 export const GET_ONE_USER_SUCCESS = "GET_ONE_USER_SUCCESS";
 export const GET_ONE_USER_FAILURE = "GET_ONE_USER_FAILURE";

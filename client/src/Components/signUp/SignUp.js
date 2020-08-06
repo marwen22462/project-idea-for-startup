@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { Spinner, Form, Button } from "react-bootstrap";
+import { Redirect, Link } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 import { register } from "../../JS/actions/actions";
 import "./SignUp.css";
@@ -12,7 +12,7 @@ class SignUp extends Component {
     email: "",
     password: "",
     accountType: "",
-    date:new Date().toLocaleDateString()
+    date: new Date().toLocaleDateString(),
   };
   handleChange = (e) =>
     this.setState({ ...this.state, [e.target.name]: e.target.value });
@@ -21,8 +21,10 @@ class SignUp extends Component {
     e.preventDefault();
     this.props.register(this.state);
   };
+
   render() {
-    const { isLoading, user, errors } = this.props;
+    const { isLoading, user } = this.props;
+    
     return isLoading ? (
       <div>
         <Spinner animation="border" variant="success" />
@@ -31,66 +33,116 @@ class SignUp extends Component {
     ) : user ? (
       <Redirect to="/login" />
     ) : (
-      <Form className="form-signUp" onSubmit={this.register}>
-        <h3 style={{ color: "white" }}>Welcome to Register page </h3>
-        {errors ? (
-          <div
-            role="alert"
-          >
-            <code>
-              {JSON.stringify(errors[0])}
-            </code>
+      
+        <div className="container-page register-page">
+          <div className="row">
+            <div className="col-md-3 register-left">
+              <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+              <h3>Welcome</h3>
+              <p>You are 30 seconds away from start your start UP!</p>
+              <Link to="/login">
+              <button type="submit" href="/login" >Login</button>
+              </Link>
+              <br />
+            </div>
+            <div className="col-md-9 register-right">
+              <ul
+                className="nav nav-tabs nav-justified"
+                id="myTab"
+                role="tablist"
+              >
+                <li className="nav-item">
+                  <a
+                    className="nav-link active"
+                    id="home-tab"
+                    data-toggle="tab"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                  >
+                    Register page
+                  </a>
+                </li>
+              </ul>
+              <div className="tab-content" id="myTabContent">
+                <div
+                  className="tab-pane fade show active"
+                  id="home"
+                  role="tabpanel"
+                  aria-labelledby="home-tab"
+                >
+                  <h3 className="register-heading">Register now for FREE</h3>
+                  <div className="row register-form">
+                    <div className="input-groupe">
+                      <div className="form-group">
+                        <input
+                        name="name"
+                          type="text"
+                          className="form-control"
+                          placeholder="Enter your name"
+                          onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input
+                        name="email"
+                          type="text"
+                          className="form-control"
+                          placeholder=" Enter your Email address"
+                          onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input
+                        name="password"
+                          type="password"
+                          className="form-control"
+                          placeholder=" Enter your password"
+                          onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <div className="maxl">
+                          <label className="radio inline">
+                            <input
+                              type="radio"
+                              name="accountType"
+                              value="Junior"
+                              onChange={this.handleChange}
+                            />
+                            <span> Junior </span>
+                          </label>
+                          <label className="radio inline">
+                            <input
+                              type="radio"
+                              name="accountType"
+                              value="Entrepreneur"
+                              onChange={this.handleChange}
+                            />
+                            <span> Entrepreneur </span>
+                          </label>
+                          <label className="radio inline">
+                            <input
+                              type="radio"
+                              name="accountType"
+                              value="Incubator"
+                              onChange={this.handleChange}
+                            />
+                            <span> Incubator </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" className="btnRegister" onClick={this.register} >Register</button>
+            </div>
           </div>
-        ) : null}
-        <Form.Group controlId="formGroupName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            placeholder="Enter name"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formGroupEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="text"
-            name="email"
-            placeholder="Enter email"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="formGroupPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group
-          controlId="exampleForm.SelectCustom"
-          onChange={this.handleChange}
-        >
-          <Form.Label>Choose your account type :</Form.Label>
-          <Form.Control name="accountType" as="select" custom>
-            <option defaultValue>choose account type ...</option>
-            <option>admin</option>
-            <option>entrepreneur</option>
-            <option>junior</option>
-            <option>incubator</option>
-          </Form.Control>
-        </Form.Group>
-
-        <Button variant="primary" onClick={this.register}>
-          Register
-        </Button>
-
-        <Button variant="danger" type="reset">
-          Reset
-        </Button>
-      </Form>
+        </div>
+      
     );
   }
 }

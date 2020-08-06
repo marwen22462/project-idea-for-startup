@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Spinner} from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
-import { oneUser } from "../../JS/actions/actions";
+import { oneUser, isAuthorized } from "../../JS/actions/actions";
 import PostCard from "./PostCard";
 
 import "./PostList.css";
@@ -12,24 +12,31 @@ class PostList extends Component {
     show: false,
   };
   componentDidMount() {
-    this.props.oneUser(this.props.match.params.id);
+    this.props.isAuthorized();
+    this.props.oneUser(this.props.profile._id);
   }
-    
 
-  
   render() {
-    const { user } = this.props;
+    const { profile, user } = this.props;
     console.log(this.props)
-    return !user ? (
+    return !profile ? (
+      <p>loading</p>
+    ) : !user ? (
       <Spinner animation="border" variant="success" />
     ) : (
       <div>
-        <div className="post-list">
-          {this.props.user.posts.map((post, key) => (
-            <PostCard post={post} key={key} />
-          ))}
-        </div>
-              </div>
+        <section id="team" className="pb-5">
+          <div className="container">
+            <h5 className="section-title h1">YOUR POSTS</h5>
+            <div className="row">
+              {this.props.user.posts.map((post, key) => (
+                <PostCard post={post} key={key} 
+                   />
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
     );
   }
 }
@@ -40,4 +47,4 @@ const mapStateToProps = (state) => ({
   user: state.authReducer.user,
 });
 
-export default connect(mapStateToProps, { oneUser })(PostList);
+export default connect(mapStateToProps, { oneUser, isAuthorized })(PostList);

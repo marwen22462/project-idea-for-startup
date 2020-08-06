@@ -43,7 +43,7 @@ export const addComment = (userId, postId, comment) => async dispatch=>{
             type: ADD_COMMENT_SUCCESS,
             payload: addCommentRes.data,
         })
-        
+        console.log(comment)
     } catch (error) {
         dispatch({
             type: ADD_COMMENT_FAILURE,

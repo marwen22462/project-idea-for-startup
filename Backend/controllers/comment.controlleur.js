@@ -4,9 +4,11 @@ module.exports = commentControlleur = {
   addComment: async (req, res) => {
     const userId = ObjectID(req.params.userId);
     const postId = ObjectID(req.params.postId);
-    const { body, date } = req.body;
+    const { body, date, name } = req.body;
+    console.log(req.body)
     try {
       const newComment = new Comment({
+        name,
         body,
         date,
         postId,

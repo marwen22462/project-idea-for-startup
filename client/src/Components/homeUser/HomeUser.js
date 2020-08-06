@@ -40,7 +40,7 @@ class HomeUser extends React.Component {
     ) : profile.accountType === "admin" ? (
       <Redirect to="/dashboard" />
     ) : (
-      <div>
+      <div className='homrUser'>
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
@@ -59,7 +59,6 @@ class HomeUser extends React.Component {
             </Link>
           </Form>
         </Navbar>
-    {/* <h1>{profile.date.}</h1> */}
         {allposts.map((allpost, key) => (
           <PostCard allpost={allpost} key={key} />
         ))}

@@ -139,17 +139,16 @@ export const getPostByType=postType1 =>async dispatch =>{
         })
     }
 }
-export const addLike = (userId, postId) =>async (dispatch) =>{
+export const addLike = (userId, postId, name) =>async (dispatch) =>{
     dispatch({
         type: ADD_LIKE
     })
     try {
-        const likeRes= await axios.post(`/profile/${userId}/post/${postId}/addLike`)
+        const likeRes= await axios.post(`/profile/${userId}/post/${postId}/addLike`, {name})
         dispatch({
             type:ADD_LIKE_SUCCESS,
             payload: likeRes.data            
         })
-        console.log(likeRes.data)
         console.log(likeRes.data)
     } catch (error) {
         dispatch({
@@ -158,17 +157,17 @@ export const addLike = (userId, postId) =>async (dispatch) =>{
         })
     }
 }
-        export const removeLike = (userId, postId) =>async (dispatch)=>{
+        export const removeLike = (userId, postId ,_id) =>async (dispatch)=>{
             dispatch({
                 type:REMOVE_LIKE
             })
             try {
-                const removeLikeRes = await axios.delete(`/profile/${userId}/post/${postId}/remove`)
+                const removeLikeRes = await axios.delete(`/profile/${userId}/post/${postId}/remove`, {data:{_id}})
                 dispatch({
                     type:REMOVE_LIKE_SUCCESS,
                     payload: removeLikeRes.data
                 })
-                console.log(removeLikeRes.data.userId)
+                // console.log(removeLikeRes.data)
             } catch (error) {
                 dispatch({
                     type:REMOVE_LIKE_FAILURE,
@@ -180,6 +179,8 @@ export const checkAbiliteToLike = (userId, postId) =>async (dispatch)=>{
     dispatch({
         type: CHECK_ABILITE_TO_LIKE
     })
+
+    
     try {
         const checkRes = await axios.get(`/profile/${userId}/post/${postId}/check`)
         dispatch({

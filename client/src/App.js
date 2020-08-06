@@ -26,7 +26,6 @@ function App() {
         <Route exact path="/profile/:id/posts" render={(props) => <PostList {...props} />} />
         <Route excat path="/profile/:id/add" render={(props) => <AddPost  {...props}/> } />
         <Route exact path="/profile/:userId/post/:postId" render={(props) => <OnePost {...props}/>}/>
-        {/* <Route exact path="/profile/:senderId/post/:reciverId/message" render={(props) => <Messages {...props}/>}/> */}
         <Route exact path="/dashboard" render={(props) => <Dashboard {...props}/>}/>
         </Switch>
       </BrowserRouter>

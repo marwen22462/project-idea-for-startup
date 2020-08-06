@@ -26,6 +26,8 @@ const postSchema = new mongoose.Schema({
   postType: String,
   likes: [ {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "like",
+    autopopulate: true,
   }, ],
   comments: [
     {
@@ -35,23 +37,20 @@ const postSchema = new mongoose.Schema({
     },
   ],
 });
-// const likeSchema = new mongoose.Schema({
-//   date: String,
-//   userId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "user",
-//     autopopulate: true,
-//   },
-//   postId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "post",
-//   },
-//   name: {
-//     type: String,
-//     ref: "user",
-//     autopopulate: true,
-//   },
-// });
+const likeSchema = new mongoose.Schema({
+  postId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "post",
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+  name: {
+    type: String,
+    ref: "user",
+  },
+});
 
 const commentSchema = new mongoose.Schema({
   postId: {
@@ -62,6 +61,7 @@ const commentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  name: String,
   body: String,
   date: String,
 });
@@ -70,11 +70,11 @@ const commentSchema = new mongoose.Schema({
 User = mongoose.model("user", userSchema);
 Post = mongoose.model("post", postSchema);
 Comment = mongoose.model("comment", commentSchema);
-// Like = mongoose.model("like", likeSchema);
+Like = mongoose.model("like", likeSchema);
 
 module.exports = {
   User,
   Post,
   Comment,
-  // Like,
+  Like,
 };
